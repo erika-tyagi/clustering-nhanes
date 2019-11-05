@@ -1,12 +1,4 @@
----
-title: 'Exploring Clustering Patterns in the National Health and Nutrition Examination Survey'
-author: 'Allison Collins & Erika Tyagi'
-output: pdf_document
----
-
-```{r setup, include = FALSE, warning = FALSE}
 rm(list = ls())
-knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(GGally)
@@ -14,9 +6,7 @@ library(factoextra)
 library(kableExtra)
 library(clValid)
 library(ggpubr)
-```
 
-``` {r import, include = TRUE, echo = FALSE}
 # import data
 nhanes <- read.csv('../process-raw-data/NHANES-clean.csv') %>% 
     filter(year == '2015-2016', 
@@ -26,31 +16,21 @@ nhanes <- read.csv('../process-raw-data/NHANES-clean.csv') %>%
            DBD910 < 1000) %>%  
     select(-c(year, SEQN, FSD200, DBQ301, DBQ301, DBQ700, DBQ424)) %>%
     drop_na() %>% 
-    sample_n(500)
+    sample_n(100)
 
 scaled <- nhanes %>% 
     scale()
-```
 
-``` {r scattplotmatrix, include = TRUE, echo = FALSE, fig.width = 12, fig.height = 10}
 # scatterplot matrix 
 ggscatmat(scaled) 
-ggsave('images/scatmat.png')
-```
+ggsave('images/scatmat.png', height = 10, width = 12)
 
-``` {r clusterability, include = TRUE, echo = FALSE}
 # diagnose clusterability 
 clustend <- get_clust_tendency(scaled, n = nrow(scaled)-1)
-
-# Hopkins statistic (sparse sampling)
 clustend$hopkins_stat
-
-# VAT / ODI 
 clustend$plot
 ggsave('images/odi.png')
-```
 
-``` {r kmeans, include = TRUE, echo = FALSE}
 # fit k-means algorithm
 kmeans <- kmeans(scaled, 
                  centers = 2,
@@ -71,9 +51,8 @@ colnames(t_kmeans)[colnames(t_kmeans)=='Freq'] <- 'assignment_kmeans'
 t_kmeans$Var1 <- NULL
 t <- cbind(nhanes, t_kmeans)
 table(t$assignment_kmeans)
-```
 
-``` {r scatterplots, include = TRUE, echo = FALSE, fig.width = 5, fig.height = 4}
+# map variable names to descriptions
 varnames <- vector(mode = 'list', length = '11')
 names(varnames) <- c('CBD071', 
                      'DBD895', 
@@ -96,6 +75,7 @@ varnames[[8]] <- 'Total saturated fatty acids (gm)'
 varnames[[9]] <- 'Sodium (mg)'     
 varnames[[10]] <- 'Total sugars (gm)'    
 
+# cluster assignment scatterplots
 plot1 <- t %>% 
     ggplot(aes(x = DR2TSFAT, y = DBD895, color = as.factor(assignment_kmeans))) + 
     geom_jitter(size = 1.0) + 
@@ -130,13 +110,11 @@ plot4 <- t %>%
           axis.title.y = element_text(size = 8))
 
 ggarrange(plot1, plot2, plot3, plot4)
-ggsave('images/scatter_clust.png')
-```
+ggsave('images/scatter_clust.png', height = 8, width = 10)
 
-``` {r evaluate, include = TRUE, echo = FALSE, warning = FALSE}
+# internal valiation 
 internal <- clValid(scaled, 2:10,  
                     clMethods = c('kmeans'), 
                     validation = 'internal')
 
-kable(optimalScores(internal), format = 'latex', booktabs = TRUE)
-```
+optimalScores(internal)
