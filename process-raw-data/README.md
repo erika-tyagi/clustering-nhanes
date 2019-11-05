@@ -1,10 +1,8 @@
 # Data Processing
 
-<<<<<<< HEAD
 We downloaded the raw NHANES survey data (using the Python package [NHANES-Downloader](https://github.com/mrwyattii/NHANES-Downloader). This yielded raw (JSON and XPT) data, along with CSV data for nine surveys: 
-=======
+
 We downloaded the raw NHANES survey data (using the Python package [NHANES-Downloader](https://github.com/mrwyattii/NHANES-Downloader). This yielded raw (.json and .xpt) data, along with .csv data for nine surveys: 
->>>>>>> 955f51fbbf7172970287c798d0e2ecdae5c86cc9
 * 1999 - 2000
 * 2001 - 2002
 * 2003 - 2004
@@ -22,7 +20,7 @@ And for each of these years, the data were also subdivided into the survey's fiv
 * Laboratory
 * Questionnaire 
 
-The raw data files are all contained in the `csv_data` folder. 
+The raw data files are all contained in the `csv_data` folder. Note that these files are too large to push to Git – so are only saved locally. 
 
 To pull variable descriptions from the variable codes, we downloaded the variable lists for each of the five components, available on the CDC website delineated by component: [Demographics](https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Demographics), [Dietary](https://wwwn.cdc.gov/nchs/nhanes/Search/variablelist.aspx?Component=Dietary), [Examination](https://wwwn.cdc.gov/nchs/nhanes/Search/variablelist.aspx?Component=Examination), [Laboratory](https://wwwn.cdc.gov/nchs/nhanes/Search/variablelist.aspx?Component=Laboratory), [Questionnaire](https://wwwn.cdc.gov/nchs/nhanes/Search/variablelist.aspx?Component=Questionnaire). `NHANES-varnames_raw.xlsx` contains the consolidated variable lists. 
 
