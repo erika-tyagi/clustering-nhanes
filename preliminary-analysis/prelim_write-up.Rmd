@@ -1,0 +1,42 @@
+---
+title: "Preliminary Analysis Write-Up"
+author: "Allison Collins & Erika Tyagi"
+date: "11/5/2019"
+output: pdf_document
+---
+
+## Overview
+
+For our project, we are utilizing the National Health and Nutrition Examination Survey (NHANES), a large-scale survey conducted annually by the Centers for Disease Control and Prevention (CDC) to assess the health and nutritional status of Americans over time. More specifically, NHANES incorporates interviews (including demographic, socioeconomic, and self-reported health-related information), physical examinations (with medical, dental, and physiological components), and additional clinical laboratory tests.
+
+At the outset, our plan had been to dig into the relationship between clinical and self-reported health outcomes, leveraging the different components of this survey, via running cluster analysis to reveal underlying groupings and patterns in the data. 
+
+Given the survey has over 13,000 unique variables, we began by referencing the CDC’s guidance on the most common chronic illnesses and associated risk factors to narrow the scope. These include diabetes, stroke, Alzheimer’s, heart disease, kidney disease, cancer, lung disease - with lifestyle risk factors such as smoking, alcohol consumption, nutrition and exercise choices. 
+
+However, as we dug into the data in the period of time following submission of the proposal, we realized that this would likely not yield a feasible project. Over time, the questions asked in the survey have shifted quite a bit, making it necessary to hone in on a more specific area, where we can find comparable clinical and questionnaire data and a large enough set of complete responses to leverage the techniques we have learned in class. 
+
+Given the emphasis of NHANES on nutritional outcomes, and the irrefutable link between nutrition and chronic illness, we have decided to focus our efforts on understanding the patterns in peoples’ nutritional profiles and the implication this has for health. 
+
+## Work done to-date
+
+Our readme in the process-raw-data folder explains our workflow for gathering and transforming the data to use in this analysis. We downloaded the raw NHANES survey data (using the Python package NHANES-Downloader. This yielded raw (.json and .xpt) data, along with .csv data for nine surveys. For each of these years, the data were also subdivided into the survey's five component parts: demographics, dietary, examination, laboratory, and questionnaire. 
+
+As mentioned above, the data contained over 13,000 variables. From this, we manually subsetted the set of features to include in our analysis to just those variables that were relevant in the context of food security and related health outcomes. The file NHANES-varnames_yesflag.csv includes the manually generated binary flag indicating the variables we included. 
+
+We then looped over the full set of survey years and components to create a cleaned file where each row represents a unique individual (identified by the SEQN identifier across tables) and survey year combination, and only the subsetted columns are included. NHANES-clean.csv contains the final version of our dataset – though again, as we add additional variables, this will change.
+
+With this dataset, we then leveraged EDA techniques learned in class to explore the data and its clusterability. The results of these can be found in the preliminary analysis pdf. Creating scatter plots for the subset of nutritional varirables we have selected highlights [...PLACEHOLDER]
+
+##Plans for completion of analysis
+
+We intend to take the below steps to complete our project:
+
+•	We will add to the list of nutrition-related variables in our scope, both from the dietary data files (clinical nutrient levels) and questionnaire, which includes information regarding peoples’ food purchase patterns (including consumption of frozen food, fast food, amount spent)
+
+•	Additionally, we will layer on demographic information (income level), height, weight, as well as create markers for different chronic illnesses (e.g. diabetes, heart disease), to better understand the composition of the clusters. For example, does a cluster with higher prevalence of diabetes emerge that has certain nutritional profile?
+
+•	Our initial data exploration has suggested we need to explore thoughtfully removing certain outliers (e.g. variables coded as 99999 which are likely some sort of incomplete rather than an intended response). We drop some of these in our proof of concept analysis but intend to systemically do so over the broader data set.
+
+•	Following the additional data aggregation, we will re-run clustering analysis, with the goal of better understanding the relationship between these variables as per above. Running the internal validation on a randomly selected sample suggested that k-means would be a good choice with 2-3 clusters but will explore leveraging other clustering and distance methods. 
+
+Finally, as food insecurity has been known to relate to chronic illnesses according to much of the literature review, our ultimate goal is to take learnings from the unsupervised clustering analysis to feed into a supervised machine learning question of predicting disease outcomes based on individuals’ nutritional profiles. 
