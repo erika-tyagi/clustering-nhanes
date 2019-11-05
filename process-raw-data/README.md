@@ -1,6 +1,10 @@
 # Data Processing
 
+<<<<<<< HEAD
 We downloaded the raw NHANES survey data (using the Python package [NHANES-Downloader](https://github.com/mrwyattii/NHANES-Downloader). This yielded raw (JSON and XPT) data, along with CSV data for nine surveys: 
+=======
+We downloaded the raw NHANES survey data (using the Python package [NHANES-Downloader](https://github.com/mrwyattii/NHANES-Downloader). This yielded raw (.json and .xpt) data, along with .csv data for nine surveys: 
+>>>>>>> 955f51fbbf7172970287c798d0e2ecdae5c86cc9
 * 1999 - 2000
 * 2001 - 2002
 * 2003 - 2004
