@@ -4,9 +4,9 @@ import glob
 import functools
 
 RAW_FILE = 'NHANES-varnames_raw.xlsx'
-NO_FLAG_FILE = 'NHANES-varnames_noflags.csv'
-YES_FLAG_FILE = 'NHANES-varnames_yesflags.csv'
-CLEAN_FILE = 'NHANES-varnames_clean.csv'
+NO_FLAG_FILE = 'NHANES-varnames_noflag.csv'
+YES_FLAG_FILE = 'NHANES-varnames_yesflag.csv'
+CLEAN_FILE = 'NHANES-clean.csv'
 MISSING_FILE = 'NHANES-missing.csv'
 
 COMPONENTS = ['Laboratory', 'Demographics', 'Questionnaire', 'Dietary', 'Examination']
@@ -20,7 +20,6 @@ for c in COMPONENTS:
     df = pd.read_excel(RAW_FILE, sheet_name = c)
     no_flag_df = no_flag_df.append(df)
     
-
 # create year flags 
 def var_in_year(row, year): 
     if (row['Begin Year'] <= year) & (row['EndYear'] >= year): 
@@ -41,18 +40,20 @@ for y in YEARS:
     v = 'flag_' + str(y)
     no_flag_df[v] = np.where(no_flag_df[v] == 0, 0, 1)
 
-
 # write to csv
 no_flag_df.to_csv(NO_FLAG_FILE, index = False)
 
 ################################################################################
 
 # get list of variables to keep 
-yes_flag_df = pd.read_csv(YES_FLAG_FILE)
-keep_vars = (yes_flag_df[yes_flag_df['keep'] == 1]['Variable Name']
-             .unique()
-             .tolist())
-keep_vars.append('SEQN')
+# yes_flag_df = pd.read_csv(YES_FLAG_FILE)
+# keep_vars = (yes_flag_df[yes_flag_df['keep'] == 1]['Variable Name']
+#              .unique()
+#              .tolist())
+# keep_vars.append('SEQN')
+
+keep_vars = ['DR2TSFAT', 'DR2TSUGR', 'DR2TSODI', 'DR2TIRON', 'DR2TFIBE', 'DR2TCALC', 'DBQ700', 
+             'CBD071', 'DBD905', 'DBD895', 'FSD200', 'DBQ424', 'DBQ301', 'DBD910', 'SEQN'] 
 
 
 # loop over all years and components 
@@ -71,15 +72,13 @@ for y in YEARS:
                 
     # merge (wide) within each year
     year_df = (functools.reduce(
-                lambda df1, df2: pd.merge(df1, df2, on = 'SEQN', how = 'outer'), year_df_list)
+        lambda df1, df2: pd.merge(df1, df2, on = 'SEQN', how = 'outer'), year_df_list)
                .drop_duplicates(subset = 'SEQN'))
     year_df['year'] = str(y) + '-' + str(y+1)
     full_df_list.append(year_df)
 
-
 # append (long) across years 
 clean_df = pd.concat(full_df_list, axis = 0, sort = True)
-
 
 # write to csv
 clean_df = clean_df[ ['year', 'SEQN'] + [ col for col in clean_df.columns if col not in ['year', 'SEQN'] ] ]
