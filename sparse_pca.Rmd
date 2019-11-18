@@ -1,0 +1,40 @@
+---
+title: "run_pca"
+author: "Allison Collins"
+date: "11/17/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(sparsepca)
+library(tidyverse)
+library(factoextra)
+```
+
+##Load the data
+
+```{r cars}
+clean <- read.csv('/Users/allisoncollins/Documents/GitHub/clustering-nhanes/process-raw-data/NHANES-clean.csv',
+                  stringsAsFactors=FALSE)
+#colnames(clean)
+
+#Remove cols we don't want
+clean_use <- clean[c(-1,-2,-68,-69,-70)]
+```
+
+## Run sparse PCA
+```{r run pca}
+spca <- spca(clean_use,
+             scale=T,
+             center=T,
+             verbose=F)
+summary(spca)
+```
+
+```{r screeplot}
+screeplot(spca)
+```
+
+
+
