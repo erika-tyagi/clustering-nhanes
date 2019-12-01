@@ -116,7 +116,7 @@ INDFMIN2,Total family income (reported as a range value in dollars),Demographics
 INDFMINC,Total family income (reported as a range value in dollars),Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,0,0,0,0,0,0
 INDFMINC,Total family income (reported as a range value in dollars),Demographics,Demographic Variables & Sample Weights,1,1,1,1,0,0,0,0,0,0
 INDFMINC,Total family income (reported as a range value in dollars),Demographics,"Los Angeles County, California - Demographic Variables & Sample Weights",1,1,1,1,0,0,0,0,0,0
-INDFMPIR,A ratio of family income to poverty guidelines.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,0
+INDFMPIR,A ratio of family income to poverty guidelines.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,1
 INDFMPIR,A ratio of family income to poverty guidelines.,Demographics,Demographic Variables & Sample Weights,0,0,0,0,0,0,1,0,0,0
 INDFMPIR,A ratio of family income to poverty guidelines.,Demographics,Demographic Variables and Sample Weights,0,0,0,0,0,0,0,1,1,0
 INDFMPIR,A ratio of family income to poverty guidelines.,Demographics,"Los Angeles County, California - Demographic Variables & Sample Weights",1,1,1,1,1,1,1,1,0,0
@@ -159,7 +159,7 @@ RC2K,Reference Census 2000 Geocoder RCs (Return Codes) tab,Demographics,"Geocode
 RC2K,Reference Census 2000 Geocoder RCs (Return Codes) tab,Demographics,"Geocoded Data, NHANES III, Census 2000",0,0,0,0,0,0,0,0,0,0
 RC2KX,Reference Census 2010 Geocoder RCs (Return Codes) tab,Demographics,"Geocoded Data, NHANES 1999-2016, Census 2010",1,1,1,1,1,1,1,1,1,0
 RC2KX,Reference Census 2010 Geocoder RCs (Return Codes) tab,Demographics,"Geocoded Data, NHANES III, Census 2010",0,0,0,0,0,0,0,0,0,0
-RIAGENDR,Gender of the participant.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,0
+RIAGENDR,Gender of the participant.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,1
 RIAGENDR,Gender of the participant.,Demographics,Demographic Variables & Sample Weights,0,0,0,0,0,0,1,0,0,0
 RIAGENDR,Gender of the participant.,Demographics,Demographic Variables and Sample Weights,0,0,0,0,0,0,0,1,1,0
 RIAGENDR,Gender of the participant.,Demographics,"Los Angeles County, California - Demographic Variables & Sample Weights",1,1,1,1,1,1,1,1,0,0
@@ -178,7 +178,7 @@ RIDAGEMN,Age in months of the participant at the time of screening. Reported for
 RIDAGEMN,Best age in months at date of screening for individuals under 80 years of age.,Demographics,Demographic Variables & Sample Weights,0,0,0,0,1,1,0,0,0,0
 RIDAGEMN,Best age in months at date of screening for individuals under 85 years of age.,Demographics,Demographic Variables & Sample Weights,1,1,1,1,0,0,0,0,0,0
 RIDAGEMN,Best age in months at date of screening for individuals under 85 years of age.,Demographics,"Los Angeles County, California - Demographic Variables & Sample Weights",1,1,1,0,0,0,0,0,0,0
-RIDAGEYR,Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,0
+RIDAGEYR,Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,1
 RIDAGEYR,Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.,Demographics,Demographic Variables & Sample Weights,0,0,0,0,0,0,1,0,0,0
 RIDAGEYR,Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.,Demographics,Demographic Variables and Sample Weights,0,0,0,0,0,0,0,1,1,0
 RIDAGEYR,Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.,Demographics,"Los Angeles County, California - Demographic Variables & Sample Weights",1,1,1,1,1,1,1,1,0,0
@@ -197,7 +197,7 @@ RIDEXPRG,Pregnancy status for females between 20 and 44 years of age at the time
 RIDEXPRG,Pregnancy status for females between 20 and 44 years of age at the time of MEC exam.,Demographics,Demographic Variables and Sample Weights,0,0,0,0,0,0,0,1,1,0
 RIDEXPRG,Pregnancy status for females between 20 and 44 years of age at the time of MEC exam.,Demographics,"Los Angeles County, California - Demographic Variables & Sample Weights",1,1,1,1,1,1,1,1,0,0
 RIDPREG,Pregnancy status variable based on all source data. NOTE: This is the previous pregnancy status recode variable. RIDPREG is a more conservative pregnancy status variable. Please review the file documentation.,Demographics,Demographic Variables & Sample Weights,1,1,0,0,0,0,0,0,0,0
-RIDRETH1,Recode of reported race and Hispanic origin information,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,0
+RIDRETH1,Recode of reported race and Hispanic origin information,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,1
 RIDRETH1,Recode of reported race and Hispanic origin information,Demographics,Demographic Variables & Sample Weights,0,0,0,0,0,0,1,0,0,0
 RIDRETH1,Recode of reported race and Hispanic origin information,Demographics,Demographic Variables and Sample Weights,0,0,0,0,0,0,0,1,1,0
 RIDRETH1,Recode of reported race and Hispanic origin information,Demographics,"Los Angeles County, California - Demographic Variables & Sample Weights",1,1,1,1,1,1,1,1,0,0
@@ -222,7 +222,7 @@ SDMVPSU,Masked variance unit pseudo-PSU variable for variance estimation,Demogra
 SDMVSTRA,Masked Variance Unit Pseudo-Stratum variable for variance estimation,Demographics,Demographic Variables & Sample Weights,1,1,1,1,1,1,0,0,0,0
 SDMVSTRA,Masked variance unit pseudo-stratum variable for variance estimation,Demographics,Demographic Variables & Sample Weights,0,0,0,0,0,0,1,0,0,0
 SDMVSTRA,Masked variance unit pseudo-stratum variable for variance estimation,Demographics,Demographic Variables and Sample Weights,0,0,0,0,0,0,0,1,1,0
-SEQN,Respondent sequence number.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,0
+SEQN,Respondent sequence number.,Demographics,California - Demographic Variables & Sample Weights,1,1,1,1,1,1,1,1,0,1
 SEQN,Respondent sequence number.,Demographics,Demographic Variables & Sample Weights,1,1,1,1,1,1,1,0,0,0
 SEQN,Respondent sequence number.,Demographics,Demographic Variables and Sample Weights,0,0,0,0,0,0,0,1,1,0
 SEQN,Respondent sequence number.,Demographics,"Geocoded Data, NHANES 1999-2016, Census 2000",1,1,1,1,1,1,1,1,1,0
@@ -1108,8 +1108,8 @@ DR2TMAGN,Magnesium (mg),Dietary,"Dietary Interview - Total Nutrient Intakes, Sec
 DR2TMFAT,Total monounsaturated fatty acids (gm),Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,1,1,1
 DR2TMOIS,Moisture (gm),Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,1,1,1
 DR2TNIAC,Niacin (mg),Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,1,1,1
-DR2TNUMF,Total number of foods reported in the individual foods file,Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,0,0,1
-DR2TNUMF,Total number of foods/beverages reported in the individual foods file,Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,0,0,0,0,0,1,1,1
+DR2TNUMF,Total number of foods reported in the individual foods file,Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,0,0,0
+DR2TNUMF,Total number of foods/beverages reported in the individual foods file,Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,0,0,0,0,0,1,1,0
 DR2TP182,PFA 18:2 (Octadecadienoic) (gm),Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,1,1,1
 DR2TP183,PFA 18:3 (Octadecatrienoic) (gm),Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,1,1,1
 DR2TP184,PFA 18:4 (Octadecatetraenoic) (gm),Dietary,"Dietary Interview - Total Nutrient Intakes, Second Day",0,0,1,1,1,1,1,1,1,1
