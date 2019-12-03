@@ -3,8 +3,10 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+import pandas as pd
+import sklearn
 
-def run_rf_model(train_df, pred_df, label, feat, threshold, accuracy = True): 
+def run_rf_model(train_df, pred_df, label, feat, threshold): 
     '''
     Builds a random forest predictor. 
 
@@ -30,13 +32,12 @@ def run_rf_model(train_df, pred_df, label, feat, threshold, accuracy = True):
     pred_prob = clf.predict_proba(pred_X)[:,1]
     pred = np.where(pred_prob > threshold, 1, 0)
     
-    if accuracy: 
-        accuracy = accuracy_score(pred_y, pred)
-        return pred_prob, pred, accuracy 
+    accuracy = accuracy_score(pred_y, pred)
+    feat_importance = feature_importance(clf, feat)
     
-    return pred_prob, pred
+    return accuracy, feat_importance
 
-def run_SVC_model(train_df, pred_df, label, feat, threshold, accuracy = True): 
+def run_SVC_model(train_df, pred_df, label, feat, threshold): 
     '''
     Builds a support vector machine model 
 
@@ -56,19 +57,18 @@ def run_SVC_model(train_df, pred_df, label, feat, threshold, accuracy = True):
     train_X, pred_X = train_df[feat], pred_df[feat]
     train_y = train_df[label].values.ravel()
     pred_y = pred_df[label].values.ravel()
-    model = SVC(probability=True)
+    model = SVC(probability=True, kernel = 'linear')
     
     clf = model.fit(train_X, train_y)
     pred_prob = clf.predict_proba(pred_X)[:,1]
     pred = np.where(pred_prob > threshold, 1, 0)
-    
-    if accuracy: 
-        accuracy = accuracy_score(pred_y, pred)
-        return pred_prob, pred, accuracy 
-    
-    return pred_prob, pred
 
-def run_DT_model(train_df, pred_df, label, feat, threshold, accuracy = True): 
+    accuracy = accuracy_score(pred_y, pred)
+    feat_importance = feature_importance(clf, feat)
+    
+    return accuracy, feat_importance
+
+def run_DT_model(train_df, pred_df, label, feat, threshold): 
     '''
     Builds a stump decision tree
 
@@ -94,8 +94,30 @@ def run_DT_model(train_df, pred_df, label, feat, threshold, accuracy = True):
     pred_prob = clf.predict_proba(pred_X)[:,1]
     pred = np.where(pred_prob > threshold, 1, 0)
     
-    if accuracy: 
-        accuracy = accuracy_score(pred_y, pred)
-        return clf, accuracy 
+    accuracy = accuracy_score(pred_y, pred)
+    feat_importance = feature_importance(clf, feat)
     
-    return clf
+    return clf, accuracy, feat_importance
+
+def feature_importance(model, features): 
+    '''
+    Returns sorted df with feature names and their importance. 
+    '''
+
+    if (type(model) == sklearn.linear_model.logistic.LogisticRegression or 
+        type(model) == sklearn.svm.SVC):
+        coefs = list(model.coef_)[0]
+        feature_importance = pd.DataFrame(zip(features, coefs),
+                                      columns=['coef', 'value'])
+        feature_importance = feature_importance.iloc[(-feature_importance['value'].abs()).argsort()]
+        # feature_importance.sort_values(by='value', ascending=False, inplace=True)
+
+    else:
+        all_vars = list(features)
+        features = [v for v in all_vars if v not in (
+            'unique_id', 'label')]
+        feature_importance = pd.DataFrame(zip(features, model.feature_importances_),
+                                          columns=['feature', 'importance'])
+        feature_importance.sort_values(by='importance', ascending=False, inplace=True)
+    
+    return feature_importance
