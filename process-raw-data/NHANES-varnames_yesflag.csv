@@ -3016,7 +3016,7 @@ BMIWAIST,Waist Circumference Comment,Examination,Body Measures,1,1,1,1,1,1,1,1,1
 BMIWT,Weight Comment,Examination,Body Measures,1,1,1,1,1,1,1,1,1,0
 BMXARMC,Arm Circumference (cm),Examination,Body Measures,1,1,1,1,1,1,1,1,1,0
 BMXARML,Upper Arm Length (cm),Examination,Body Measures,1,1,1,1,1,1,1,1,1,0
-BMXBMI,Body Mass Index (kg/m**2),Examination,Body Measures,1,1,1,1,1,1,1,1,1,0
+BMXBMI,Body Mass Index (kg/m**2),Examination,Body Measures,1,1,1,1,1,1,1,1,1,1
 BMXCALF,Maximal Calf Circumference (cm),Examination,Body Measures,1,1,1,1,0,0,0,0,0,0
 BMXHEAD,Head Circumference (cm),Examination,Body Measures,1,1,1,1,1,1,1,1,1,0
 BMXHT,Standing Height (cm),Examination,Body Measures,1,1,1,1,1,1,1,1,1,0
@@ -16334,7 +16334,7 @@ BPD120,"Even though a doctor or other health professional has never told {you/SP
 BPD130,"Even though a doctor or other health professional has never told {you/SP} to control {your/his/her} weight or lose weight, we are now going to ask if {you have/he/she/has} made any major changes on {your/his/her} own to lower {your/his/her} blood cholesterol? Specifically, {have you/has he/she} controlled {your/his/her} weight or lost weight in order to lower {your/his/her} blood cholesterol?",Questionnaire,Blood Pressure & Cholesterol,0,1,1,0,0,0,0,0,0,0
 BPD140,"Even though a doctor or other health professional has never told {you/SP} to increase {your/his/her} physical activity or exercise, we are now going to ask if {you have/he/she has} made any major changes on {your/his/her} own to lower {your/his/her} blood cholesterol? Specifically, {have you/has he/she} increased {your/his/her} physical activity or exercise in order to lower {your/his/her} blood cholesterol?",Questionnaire,Blood Pressure & Cholesterol,0,1,1,0,0,0,0,0,0,0
 BPQ010,About how long has it been since {you/SP} last had {your/his/her} blood pressure taken by a doctor or other health professional? Was it . . .,Questionnaire,Blood Pressure & Cholesterol,1,1,1,0,0,0,0,0,0,0
-BPQ020,"{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension, also called high blood pressure?",Questionnaire,Blood Pressure & Cholesterol,1,1,1,1,1,1,1,1,1,0
+BPQ020,"{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension, also called high blood pressure?",Questionnaire,Blood Pressure & Cholesterol,1,1,1,1,1,1,1,1,1,1
 BPQ030,"{Were you/Was SP} told on 2 or more different visits that {you/s/he} had hypertension, also called high blood pressure?",Questionnaire,Blood Pressure & Cholesterol,1,1,1,1,1,1,1,1,1,0
 BPQ040A,"Because of {your/SP's} (high blood pressure/hypertension), {have you/has s/he} ever been told to . . . take prescribed medicine?",Questionnaire,Blood Pressure & Cholesterol,1,1,1,1,1,1,1,1,1,0
 BPQ040B,"Because of {your/SP's} (high blood pressure/hypertension), {have you/has s/he} ever been told to control {your/his/her} weight or lose weight?",Questionnaire,Blood Pressure & Cholesterol,1,1,1,0,0,0,0,0,0,0

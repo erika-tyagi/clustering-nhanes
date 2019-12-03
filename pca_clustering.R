@@ -8,7 +8,7 @@ library(ggfortify)
 library(ggcorrplot)
 
 # import clean data 
-clean <- read.csv('process-raw-data/NHANES-clean.csv')
+clean <- read.csv('~/Documents/GitHub/clustering-nhanes/process-raw-data/NHANES-clean.csv')
 
 # limit to adult, high recall, and usual consumption respondents 
 limited <- clean %>% 
@@ -20,7 +20,7 @@ limited <- clean %>%
 
 # subset demographic features 
 demo <- limited %>% 
-    select(year, SEQN, RIDAGEYR, RIAGENDR, INDFMPIR, RIDRETH1, 
+    select(year, SEQN, BMXBMI, BPQ020, RIDAGEYR, RIAGENDR, INDFMPIR, RIDRETH1, 
            TKCAL, TPROT, TCARB, TSUGR, TTFAT)
 
 # subset nutrient features 
@@ -85,9 +85,9 @@ fviz_pca_biplot(pca,
 comps <- data.frame(pca$x[, 1:20])
 
 # diagnose clusterability
-clustend <- get_clust_tendency(comps, n = nrow(comps) - 1)
-clustend$hopkins_stat
-clustend$plot 
+#clustend <- get_clust_tendency(comps, n = nrow(comps) - 1)
+#clustend$hopkins_stat
+#clustend$plot 
 
 # kmeans 
 set.seed(123)
@@ -124,4 +124,4 @@ combined %>%
     group_by(assignment_kmeans) %>% 
     summarise(avg_age = median(RIDAGEYR))
 
-
+write.csv(combined,'~/Documents/GitHub/clustering-nhanes/process-raw-data/clustered_data.csv', row.names = FALSE)
