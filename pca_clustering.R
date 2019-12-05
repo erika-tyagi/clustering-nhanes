@@ -21,7 +21,7 @@ limited <- clean %>%
 # subset demographic features 
 demo <- limited %>% 
     select(year, SEQN, BMXBMI, BPQ020, RIDAGEYR, RIAGENDR, INDFMPIR, RIDRETH1, 
-           TKCAL, TPROT, TCARB, TSUGR, TTFAT)
+           TKCAL, TPROT, TCARB, TSUGR, TTFAT, TPOTA, TMAGN, TFOLA, TSFAT)
 
 # subset nutrient features 
 features <- limited %>% 
@@ -30,7 +30,7 @@ features <- limited %>%
 # correlation matrix 
 corr <- cor(features)
 ggcorrplot(corr) + 
-    scale_fill_gradient2(limit = c(-0.1, 1)) +
+    scale_fill_gradient2(limit = c(-1, 1)) +
     theme(axis.text.x = element_blank(), 
           axis.text.y = element_blank()) + 
     labs(fill = "Correlation")
@@ -69,7 +69,7 @@ fviz_contrib(pca,
 fviz_pca_var(pca, 
              col.var = 'contrib', 
              select.var = list(contrib = 10), 
-             repel = T,)
+             repel = T)
 
 # biplot 
 fviz_pca_biplot(pca, 
@@ -83,7 +83,7 @@ fviz_pca_biplot(pca,
                 pointsize = 0.5)
 
 # get components
-comps <- data.frame(pca$x[, 1:5])
+comps <- data.frame(pca$x[, 1:7])
 
 # diagnose clusterability
 #clustend <- get_clust_tendency(comps, n = nrow(comps) - 1)
@@ -117,17 +117,33 @@ combined <- cbind(demo, comps, t_kmeans)
 
 # visualize 
 combined %>% 
-    ggplot(aes(x = TTFAT, y = TKCAL, color = as.factor(assignment_kmeans))) +
+    ggplot(aes(x = TCARB, y = TTFAT, color = as.factor(assignment_kmeans))) +
     geom_point(size = 0.1) + 
     labs(main = 'Cluster Assignments', 
-         x = 'Total fat (gm)',
-         y = 'Energy (kcal)') + 
+         x = 'Carbohydrate (gm) / Energy (kcal)', 
+         y = 'Total fat (gm) / Energy (kcal)') + 
     theme_bw() + 
     theme(legend.title = element_blank()) 
 
+combined %>% 
+    ggplot(mapping = aes(x = as.factor(assignment_kmeans), y = RIDAGEYR)) + 
+    geom_boxplot() + 
+    scale_x_discrete(labels = c('1', '2')) + 
+    labs(y = 'Age in years') +
+    theme_bw() + 
+    theme(axis.title.x = element_blank())
+
+combined %>% 
+    ggplot(mapping = aes(x = as.factor(assignment_kmeans), y = INDFMPIR)) + 
+    geom_boxplot() + 
+    scale_x_discrete(labels = c('1', '2')) + 
+    labs(y = 'Ratio of family income to poverty') +
+    theme_bw() + 
+    theme(axis.title.x = element_blank())
+
 # summarize numerically 
 combined %>% 
-    group_by(assignment_kmeans) %>% 
-    summarise(avg_age = median(RIDAGEYR))
+    group_by(RIDRETH1) %>% 
+    summarise(avg_age = median(RIDRETH1))
 
 write.csv(combined,'~/Documents/GitHub/clustering-nhanes/process-raw-data/clustered_data.csv', row.names = FALSE)
