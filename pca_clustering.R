@@ -8,7 +8,7 @@ library(ggfortify)
 library(ggcorrplot)
 
 # import clean data 
-clean <- read.csv('~/Documents/GitHub/clustering-nhanes/process-raw-data/NHANES-clean.csv')
+clean <- read.csv('process-raw-data/NHANES-clean.csv')
 
 # limit to adult, high recall, and usual consumption respondents 
 limited <- clean %>% 
@@ -32,7 +32,8 @@ corr <- cor(features)
 ggcorrplot(corr) + 
     scale_fill_gradient2(limit = c(-0.1, 1)) +
     theme(axis.text.x = element_blank(), 
-          axis.text.y = element_blank())
+          axis.text.y = element_blank()) + 
+    labs(fill = "Correlation")
 
 # identify highly correlated features 
 corr_check <- function(Dataset, threshold){
@@ -47,7 +48,7 @@ corr_check <- function(Dataset, threshold){
     }
 }
 
-corr_check(features, 0.90)
+corr_check(features, 0.95)
 
 # run PCA 
 pca <- prcomp(features, 
@@ -68,7 +69,7 @@ fviz_contrib(pca,
 fviz_pca_var(pca, 
              col.var = 'contrib', 
              select.var = list(contrib = 10), 
-             repel = T)
+             repel = T,)
 
 # biplot 
 fviz_pca_biplot(pca, 
@@ -82,7 +83,7 @@ fviz_pca_biplot(pca,
                 pointsize = 0.5)
 
 # get components
-comps <- data.frame(pca$x[, 1:20])
+comps <- data.frame(pca$x[, 1:5])
 
 # diagnose clusterability
 #clustend <- get_clust_tendency(comps, n = nrow(comps) - 1)
@@ -117,7 +118,12 @@ combined <- cbind(demo, comps, t_kmeans)
 # visualize 
 combined %>% 
     ggplot(aes(x = TTFAT, y = TKCAL, color = as.factor(assignment_kmeans))) +
-    geom_point(size = 0.1)
+    geom_point(size = 0.1) + 
+    labs(main = 'Cluster Assignments', 
+         x = 'Total fat (gm)',
+         y = 'Energy (kcal)') + 
+    theme_bw() + 
+    theme(legend.title = element_blank()) 
 
 # summarize numerically 
 combined %>% 
