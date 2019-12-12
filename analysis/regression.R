@@ -1,6 +1,7 @@
 rm(list = ls())
 options(scipen = 3)
 
+library(tidyverse)
 library(stargazer)
 
 # import clustered data 
