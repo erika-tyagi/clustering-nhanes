@@ -29,7 +29,6 @@ summary(model2)
 
 # demographics and components
 model3 <- lm(is_obese ~ RIDAGEYR + as.factor(RIAGENDR) + INDFMPIR + as.factor(RIDRETH1) 
-             + as.factor(assignment_kmeans)
              + PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7,  
              data = clustered) 
 summary(model3)
