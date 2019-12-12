@@ -7,8 +7,10 @@ library(factoextra)
 library(ggfortify)
 library(ggcorrplot)
 
+##### PROCESS DATA #####
+
 # import clean data 
-clean <- read.csv('process-raw-data/NHANES-clean.csv')
+clean <- read.csv('../process-raw-data/NHANES-clean.csv')
 
 # limit to adult, high recall, and usual consumption respondents 
 limited <- clean %>% 
@@ -26,6 +28,8 @@ demo <- limited %>%
 # subset nutrient features 
 features <- limited %>% 
     select(-year, -SEQN, -RIDAGEYR, -RIAGENDR, -INDFMPIR, -RIDRETH1)
+
+##### CORRELATIONS #####
 
 # correlation matrix 
 corr <- cor(features)
@@ -49,6 +53,8 @@ corr_check <- function(Dataset, threshold){
 }
 
 corr_check(features, 0.95)
+
+###### DIMENSIONALITY REDUCTION #####
 
 # run PCA 
 pca <- prcomp(features, 
@@ -85,6 +91,8 @@ fviz_pca_biplot(pca,
 # get components
 comps <- data.frame(pca$x[, 1:7])
 
+##### CLUSTERING ##### 
+
 # diagnose clusterability
 #clustend <- get_clust_tendency(comps, n = nrow(comps) - 1)
 #clustend$hopkins_stat
@@ -101,11 +109,12 @@ fviz_cluster(kmeans,
              data = comps, 
              geom = 'point', 
              show.clust.cent = F, 
-             main = 'Cluster Plot: K-Means')
+             main = 'Cluster plot') + 
+    theme_bw()
 
 # # validate
-# clValid(comps, 2:5, 
-#         clMethods = c('kmeans'), 
+# clValid(comps, 2:5,
+#         clMethods = c('kmeans', 'pam'),
 #         validation = 'internal')
 
 # combine dataframes 
@@ -115,16 +124,46 @@ t_kmeans <- t_kmeans %>%
     select(assignment_kmeans)
 combined <- cbind(demo, comps, t_kmeans) 
 
-# visualize 
+##### VISUALIZE CLUSTERS ##### 
+
+# visualize against original nutrients 
 combined %>% 
-    ggplot(aes(x = TCARB, y = TTFAT, color = as.factor(assignment_kmeans))) +
+    ggplot(aes(x = TTFAT, y = TSUGR, color = as.factor(assignment_kmeans))) +
     geom_point(size = 0.1) + 
     labs(main = 'Cluster Assignments', 
-         x = 'Carbohydrate (gm) / Energy (kcal)', 
-         y = 'Total fat (gm) / Energy (kcal)') + 
+         x = 'Total fat (gm) / Energy (kcal)', 
+         y = 'Total sugars (gm) / Energy (kcal)') + 
     theme_bw() + 
     theme(legend.title = element_blank()) 
 
+combined %>% 
+    ggplot(aes(x = TTFAT, y = TFOLA, color = as.factor(assignment_kmeans))) +
+    geom_point(size = 0.1) + 
+    labs(main = 'Cluster Assignments', 
+         x = 'Total fat (gm) / Energy (kcal)',
+         y = 'Total folate (mcg) / Energy (kcal)') + 
+    theme_bw() + 
+    theme(legend.title = element_blank()) 
+
+combined %>% 
+    ggplot(aes(x = TTFAT, y = TSFAT, color = as.factor(assignment_kmeans))) +
+    geom_point(size = 0.1) + 
+    labs(main = 'Cluster Assignments', 
+         x = 'Total fat (gm) / Energy (kcal)', 
+         y = 'Total saturated fatty acids (gm) / Energy (kcal)') + 
+    theme_bw() + 
+    theme(legend.title = element_blank()) 
+
+combined %>% 
+    ggplot(aes(x = TMAGN, y = TFOLA, color = as.factor(assignment_kmeans))) +
+    geom_point(size = 0.1) + 
+    labs(main = 'Cluster Assignments', 
+         x = 'Magnesium (mg) / Energy (kcal)', 
+         y = 'Total folate (mcg) / Energy (kcal)') + 
+    theme_bw() + 
+    theme(legend.title = element_blank()) 
+
+# visualize against demographics  
 combined %>% 
     ggplot(mapping = aes(x = as.factor(assignment_kmeans), y = RIDAGEYR)) + 
     geom_boxplot() + 
@@ -146,6 +185,12 @@ combined %>%
                              RIAGENDR != 1 ~ 0)) %>% 
     group_by(as.factor(assignment_kmeans)) %>% 
     summarise(avg_white = mean(white))
+
+
+
+
+
+
 
 # regression 
 combined <- combined %>% 
