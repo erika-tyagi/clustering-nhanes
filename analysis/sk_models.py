@@ -214,8 +214,8 @@ def clean_and_create_features(train_df, test_df, feature_generator_dict=None, co
     train_df = pd.get_dummies(data=train_df, columns=['RIAGENDR','RIDRETH1'])
     test_df = pd.get_dummies(data=test_df, columns=['RIAGENDR','RIDRETH1'])
 
-    cols_to_drop = {'year','TKCAL','TPROT','TCARB', 'TSUGR','TTFAT',
-        'RIDAGEYR', 'INDFMPIR','PC1','PC2','PC3', 'PC4', 'PC5', 'PC6', 'PC7','assignment_kmeans','BMXBMI','BPQ020','SEQN'}
+    cols_to_drop = {'year','RIDAGEYR', 'INDFMPIR','PC1','PC2','PC3', 
+    'PC4', 'PC5', 'PC6', 'PC7','assignment_kmeans','BMXBMI','BPQ020','SEQN'}
 
     #cleaning out columns where there are no differentiations - specifically where we
     #don't impute at all here
