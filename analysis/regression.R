@@ -9,7 +9,7 @@ clustered <- read.csv('clustered_data.csv')
 # create dependent variables  
 clustered <- clustered %>% 
     mutate(is_obese = case_when(BMXBMI > 30 ~ 1, 
-                                BMXBMI <= 30 ~ 1), 
+                                BMXBMI <= 30 ~ 0), 
            has_high_bp = case_when(BPQ020 == 1 ~ 1, 
                                    BPQ020 != 1 ~ 0)
     ) 
@@ -54,7 +54,6 @@ summary(model5)
 
 # demographics and components
 model6 <- lm(has_high_bp ~ RIDAGEYR + as.factor(RIAGENDR) + INDFMPIR + as.factor(RIDRETH1) 
-             + as.factor(assignment_kmeans)
              + PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7,  
              data = clustered) 
 summary(model6)
